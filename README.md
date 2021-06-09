@@ -28,6 +28,18 @@ Projeto para futuras consultas, utilizando **Identity** e **JWT**.
     dotnet add package Microsoft.EntityFrameworkCore.Tools --version 5.0.6
     ```
 
+---
+### Pacotes - Jwt
+
+* ***Microsoft.AspNetCore.Authentication***
+    ```sh
+    dotnet add package Microsoft.AspNetCore.Authentication
+    ```
+
+* ***Microsoft.AspNetCore.Authentication.JwtBearer***
+    ```sh
+    dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 5.0.6
+    ```
 
 
 # Referências 

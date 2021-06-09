@@ -16,6 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace aspnetIdentity.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class AuthController : ControllerBase
@@ -54,8 +55,7 @@ namespace aspnetIdentity.Controllers
             return new BadRequestObjectResult(
                 "Não foi possível inserir esse usuário. Cadastro já existe na base de dados.");
         }
-
-        [Authorize]
+        
         [HttpGet("findUserByUserName")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -71,6 +71,7 @@ namespace aspnetIdentity.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
@@ -80,13 +81,10 @@ namespace aspnetIdentity.Controllers
             //     "password": "Admin@1"
             // }
             
-            var result = await _signInManager.PasswordSignInAsync(model.Email,
-                model.Password, false, lockoutOnFailure: true);
+            var user = await _userManager.FindByEmailAsync(model.Email);
 
-            if (result.Succeeded)
+            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))  
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                
                 return new OkObjectResult(await GenerateToken(user));
             }
 
