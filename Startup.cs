@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using aspnetIdentity.Authentication;
 using aspnetIdentity.Extensions;
@@ -100,7 +101,8 @@ namespace aspnetIdentity
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidAudience = jwtSettings.Audience,
-                    ValidIssuer = jwtSettings.Issuer
+                    ValidIssuer = jwtSettings.Issuer,
+                    ClockSkew = TimeSpan.Zero
                 };
             });
 
