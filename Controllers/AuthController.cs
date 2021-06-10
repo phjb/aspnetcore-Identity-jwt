@@ -48,7 +48,6 @@ namespace aspnetIdentity.Controllers
                     _userManager.AddToRoleAsync(user, model.Role.ToString()).Wait();
                     return StatusCode(StatusCodes.Status201Created);
                 }
-
                 return StatusCode(StatusCodes.Status400BadRequest);
             }
 
